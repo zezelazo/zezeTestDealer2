@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>Dealer</AssemblyName>
     <!-- SINTAXIS 3: valor entrecomillado por XML -->
-    <DllCoreVersion>1.0.0</DllCoreVersion>
+    <DllCoreVersion>1.4.0</DllCoreVersion>
   </PropertyGroup>
 
   <!-- SINTAXIS 2: la version como SEGMENTO DE CARPETA dentro del HintPath.
@@ -14,7 +14,7 @@
        ItemGroup inerte en CI: el binario vendorizado no existe en el sandbox. -->
   <ItemGroup Condition="'$(UseVendoredDll)' == 'true'">
     <Reference Include="DllCore">
-      <HintPath>..\..\lib\DllCore.1.0.0\DllCore.dll</HintPath>
+      <HintPath>..\..\lib\DllCore.1.4.0\DllCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 
