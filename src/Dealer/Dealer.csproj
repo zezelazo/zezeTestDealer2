@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <!-- SINTAXIS 2: la version como SEGMENTO DE CARPETA dentro del HintPath.
-       Un regex anclado en comillas ("1.0.0") no lo ve y falla en silencio.
+       Un regex anclado en comillas XML no lo ve y falla en silencio.
        ItemGroup inerte en CI: el binario vendorizado no existe en el sandbox. -->
   <ItemGroup Condition="'$(UseVendoredDll)' == 'true'">
     <Reference Include="DllCore">

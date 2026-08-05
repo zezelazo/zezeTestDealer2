@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>DealerExtra</AssemblyName>
-    <!-- DECOY A: 1.0.0.79 contiene "1.0.0" entero -->
+    <!-- DECOY A: lleva la version base como prefijo -->
     <DllCoreVersion>1.0.0.79</DllCoreVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DllCore">
-      <!-- DECOY B: 1.0.0.795 contiene "1.0.0" y ademas contiene "1.0.0.79" -->
+      <!-- DECOY B: prefijo de la base y ademas superconjunto del DECOY A -->
       <HintPath>..\..\lib\DllCore.1.0.0.795\DllCore.dll</HintPath>
     </Reference>
   </ItemGroup>
