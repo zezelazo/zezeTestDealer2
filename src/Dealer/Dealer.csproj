@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Dealer</AssemblyName>
+    <!-- SINTAXIS 3: valor entrecomillado por XML -->
+    <DllCoreVersion>1.0.0</DllCoreVersion>
+  </PropertyGroup>
+
+  <!-- SINTAXIS 2: la version como SEGMENTO DE CARPETA dentro del HintPath.
+       Un regex anclado en comillas ("1.0.0") no lo ve y falla en silencio.
+       ItemGroup inerte en CI: el binario vendorizado no existe en el sandbox. -->
+  <ItemGroup Condition="'$(UseVendoredDll)' == 'true'">
+    <Reference Include="DllCore">
+      <HintPath>..\..\lib\DllCore.1.0.0\DllCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>DllCoreVersion</_Parameter1>
+      <_Parameter2>$(DllCoreVersion)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

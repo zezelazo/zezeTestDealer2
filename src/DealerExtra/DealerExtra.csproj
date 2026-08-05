@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- FIXTURE. El CI no compila esto. Existe solo para detectar reemplazos ingenuos. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>DealerExtra</AssemblyName>
+    <!-- DECOY A: 1.0.0.79 contiene "1.0.0" entero -->
+    <DllCoreVersion>1.0.0.79</DllCoreVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DllCore">
+      <!-- DECOY B: 1.0.0.795 contiene "1.0.0" y ademas contiene "1.0.0.79" -->
+      <HintPath>..\..\lib\DllCore.1.0.0.795\DllCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

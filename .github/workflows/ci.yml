@@ -1,0 +1,31 @@
+name: dealer-ci
+on:
+  push:
+    branches: [QA, UAT, master]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build
+        run: dotnet build src/Dealer/Dealer.csproj -c Release --nologo
+      - name: Run (evidencia: la consola imprime la version)
+        run: |
+          set -e
+          OUT=$(dotnet src/Dealer/bin/Release/net8.0/Dealer.dll)
+          echo "$OUT"
+          { echo "## Salida del ejecutable"; echo ""; echo '```'; echo "$OUT"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Verificar decoys intactos
+        run: |
+          set -e
+          fail=0
+          grep -q '<DllCoreVersion>1\.0\.0\.79</DllCoreVersion>' src/DealerExtra/DealerExtra.csproj || { echo "::error::decoy 1.0.0.79 CORRUPTO"; fail=1; }
+          grep -q 'DllCore\.1\.0\.0\.795' src/DealerExtra/DealerExtra.csproj || { echo "::error::decoy 1.0.0.795 CORRUPTO"; fail=1; }
+          grep -q '^1\.0\.0\.18-beta$' src/DealerExtra/neighbour.version || { echo "::error::decoy 1.0.0.18-beta CORRUPTO"; fail=1; }
+          if [ "$fail" = "0" ]; then echo "Los 3 decoys intactos"; echo "Los 3 decoys intactos: 1.0.0.79 / 1.0.0.795 / 1.0.0.18-beta" >> "$GITHUB_STEP_SUMMARY"; fi
+          exit $fail
